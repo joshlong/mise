@@ -42,6 +42,7 @@ gradle = "9.7.1"
 kotlin = { version = "2.4.20", asset_pattern = "kotlin-compiler-*.zip", bin_path = "kotlinc/bin" }
 maven = "3.9.16"
 
+
 # ------------------------------------------------- environment variables ----
 
 [env]
@@ -114,6 +115,7 @@ adopt = true
 
 # --- formulae ---
 "brew:antigen"                    = "latest"
+"brew:age-keygen"                 = "latest"
 "brew:arconia-io/tap/arconia-cli" = "latest"
 "brew:awscli"                     = "latest"
 "brew:bash"                       = "latest"
