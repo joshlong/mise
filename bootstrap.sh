@@ -20,8 +20,21 @@ mise --version
 mise use -g bitwarden
 mise reshim
 
-bw login
-export BW_SESSION=$(bw unlock --raw)
+# `bw login` exits 1 if you are already logged in, so branch on status instead
+# of assuming a fresh machine -- this script has to be re-runnable.
+BW_STATUS="$(bw status | sed -n 's/.*"status":"\([^"]*\)".*/\1/p')"
+if [ "$BW_STATUS" = "unauthenticated" ]; then
+  bw login   # interactive; do NOT capture, or the prompts get swallowed
+fi
+
+# normalize to a known state: lock, then unlock to mint a session key. unlocking
+# an already-unlocked vault errors, and we have no way to recover the existing
+# session key from inside the script.
+bw lock >/dev/null 2>&1 || true
+
+# assign on its own line: `export FOO=$(cmd)` masks cmd's exit status from set -e
+BW_SESSION="$(bw unlock --raw)"
+export BW_SESSION
 
 # --- ssh key for age encryption --------------------------------------------
 mkdir -p ~/.config/mise ~/.ssh
@@ -36,7 +49,7 @@ bw get notes "mise-bootstrap-public-ssh-key" > "$PUB_KEY"
 chmod 644 "$PUB_KEY"
 
 mise settings experimental=true
-mise set --age-encrypt --age-ssh-recipient "$PUB_KEY" --prompt DB_PASSWORD
+# mise set --age-encrypt --age-ssh-recipient "$PUB_KEY" --prompt DB_PASSWORD
 
 
-# mise bootstrap --adopt https://github.com/joshlong/mise.git
+mise bootstrap --adopt https://github.com/joshlong/mise.git
