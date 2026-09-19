@@ -137,51 +137,70 @@ adopt = true
 [bootstrap.packages]
 
 # --- formulae ---
-"brew:antigen"                    = "latest"
-"brew:age"                        = "latest"
-"brew:arconia-io/tap/arconia-cli" = "latest"
-"brew:awscli"                     = "latest"
-"brew:bash"                       = "latest"
-"brew:bitwarden-cli"              = "latest"
-"brew:block-goose-cli"            = "latest"
-"brew:checkstyle"                 = "latest"
-"brew:cloudfoundry-cli"           = "latest"
-"brew:curl"                       = "latest"
-"brew:direnv"                     = "latest"
-"brew:docker"                     = "latest"
-"brew:docker-compose"             = "latest"
-"brew:ffmpeg"                     = "latest"
-"brew:ffmpeg-full"                = "latest"
-"brew:gh"                         = "latest"
-"brew:git"                        = "latest"
-"brew:gnupg"                      = "latest"
-"brew:graphviz"                   = "latest"
-"brew:grpcurl"                    = "latest"
-"brew:hey"                        = "latest"
-"brew:httpie"                     = "latest"
-"brew:imagemagick"                = "latest"
-"brew:imagemagick-full"           = "latest"
-"brew:kubectx"                    = "latest"
-"brew:kubent"                     = "latest"
-"brew:kubernetes-cli"             = "latest"
-"brew:libpq"                      = "latest"
-"brew:mongocli"                   = "latest"
-"brew:mongosh"                    = "latest"
-"brew:neovim"                     = "latest"
-"brew:ollama"                     = "latest"
-"brew:pandoc"                     = "latest"
-"brew:python@3.13"                = "latest"
-"brew:rbenv"                      = "latest"
-"brew:ruby"                       = "latest"  
-"brew:rustup"                     = "latest"
-"brew:tree"                       = "latest"
-"brew:uv"                         = "latest"
-"brew:watch"                      = "latest"
-"brew:wget"                        = "latest"
-"brew:ytt"                         = "latest"
-"brew:zimg"                        = "latest"
-"brew:zsh"                         = "latest"
+"brew:antigen"                    = { version = "latest", os = ["macos"] }
+"brew:age"                        = { version = "latest", os = ["macos"] }
+"brew:arconia-io/tap/arconia-cli" = { version = "latest", os = ["macos"] }
+"brew:awscli"                     = { version = "latest", os = ["macos"] }
+"brew:bash"                       = { version = "latest", os = ["macos"] }
+"brew:bitwarden-cli"              = { version = "latest", os = ["macos"] }
+"brew:block-goose-cli"            = { version = "latest", os = ["macos"] }
+"brew:checkstyle"                 = { version = "latest", os = ["macos"] }
+"brew:cloudfoundry-cli"           = { version = "latest", os = ["macos"] }
+"brew:curl"                       = { version = "latest", os = ["macos"] }
+"brew:direnv"                     = { version = "latest", os = ["macos"] }
+"brew:docker"                     = { version = "latest", os = ["macos"] }
+"brew:docker-compose"             = { version = "latest", os = ["macos"] }
+"brew:ffmpeg"                     = { version = "latest", os = ["macos"] }
+"brew:ffmpeg-full"                = { version = "latest", os = ["macos"] }
+"brew:gh"                         = { version = "latest", os = ["macos"] }
+"brew:git"                        = { version = "latest", os = ["macos"] }
+"brew:gnupg"                      = { version = "latest", os = ["macos"] }
+"brew:graphviz"                   = { version = "latest", os = ["macos"] }
+"brew:grpcurl"                    = { version = "latest", os = ["macos"] }
+"brew:hey"                        = { version = "latest", os = ["macos"] }
+"brew:httpie"                     = { version = "latest", os = ["macos"] }
+"brew:imagemagick"                = { version = "latest", os = ["macos"] }
+"brew:imagemagick-full"           = { version = "latest", os = ["macos"] }
+"brew:kubectx"                    = { version = "latest", os = ["macos"] }
+"brew:kubent"                     = { version = "latest", os = ["macos"] }
+"brew:kubernetes-cli"             = { version = "latest", os = ["macos"] }
+"brew:libpq"                      = { version = "latest", os = ["macos"] }
+"brew:mongocli"                   = { version = "latest", os = ["macos"] }
+"brew:mongosh"                    = { version = "latest", os = ["macos"] }
+"brew:neovim"                     = { version = "latest", os = ["macos"] }
+"brew:ollama"                     = { version = "latest", os = ["macos"] }
+"brew:pandoc"                     = { version = "latest", os = ["macos"] }
+"brew:python@3.13"                = { version = "latest", os = ["macos"] }
+"brew:rbenv"                      = { version = "latest", os = ["macos"] }
+"brew:ruby"                       = { version = "latest", os = ["macos"] }
+"brew:rustup"                     = { version = "latest", os = ["macos"] }
+"brew:tree"                       = { version = "latest", os = ["macos"] }
+"brew:uv"                         = { version = "latest", os = ["macos"] }
+"brew:watch"                      = { version = "latest", os = ["macos"] }
+"brew:wget"                        = { version = "latest", os = ["macos"] }
+"brew:ytt"                         = { version = "latest", os = ["macos"] }
+"brew:zimg"                        = { version = "latest", os = ["macos"] }
+"brew:zsh"                         = { version = "latest", os = ["macos"] }
 "brew-cask:firefox"                = "latest"
+# --- linux (apt self-gates; these never run on macOS) ---
+# Deliberately minimal: enough to work in a container. The brew list above is
+# the Mac's full set and is gated off here -- on linux-arm64 mise would resolve
+# ~248 formulae against formulae.brew.sh and most have no bottle.
+"apt:git"          = "latest"
+"apt:curl"         = "latest"
+"apt:ca-certificates" = "latest"
+"apt:gnupg"        = "latest"
+"apt:unzip"        = "latest"
+"apt:build-essential" = "latest"
+"apt:zsh"          = "latest"   # shell activation writes ~/.zshrc; need a zsh to read it
+"apt:direnv"       = "latest"
+"apt:neovim"       = "latest"
+"apt:ripgrep"      = "latest"
+"apt:jq"           = "latest"
+"apt:tree"         = "latest"
+"apt:wget"         = "latest"
+"apt:python3-tk"   = "latest"
+
 "flatpak:com.spotify.Client"       = "latest"
 "brew:git-gui"                     =  { version="latest", os =["macos"] }
 "brew:python-tk@3.14"             = { version = "latest", os = ["macos"] }

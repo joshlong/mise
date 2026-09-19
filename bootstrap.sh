@@ -56,6 +56,13 @@ trap 'rm -rf "$TMPDIR_BOOT"' EXIT
 EMPTY_CONF="$TMPDIR_BOOT/empty.toml"
 : > "$EMPTY_CONF"
 
+# MISE_GLOBAL_CONFIG_FILE suppresses only the GLOBAL config. A mise.toml in the
+# CURRENT DIRECTORY is still loaded -- and this repo's own mise.toml is exactly
+# the file full of age secrets we cannot decrypt yet. Running ./bootstrap.sh
+# from the checkout therefore dies before it can fetch the key. Work from a dir
+# we know has no config. Nothing below uses relative paths.
+cd "$TMPDIR_BOOT"
+
 # every bw call runs under the empty config, never the secret-bearing one
 bw() { MISE_GLOBAL_CONFIG_FILE="$EMPTY_CONF" mise x bitwarden@latest -- bw "$@"; }
 
