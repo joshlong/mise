@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# curl https://mise.run | sh
+curl https://mise.run | sh
 mise use -g bitwarden
 bw login 
 export BW_SESSION=$(bw unlock --raw)
