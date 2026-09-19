@@ -32,6 +32,7 @@ azure-cli = "latest"
 dotnet-core = "latest"
 python = "3.14.7"
 gemini-cli = "latest"
+neovim = "latest"
 google-java-format = "latest"
 gcloud = "latest"
 gradle = "9.7.1"
@@ -45,15 +46,15 @@ uv = "latest"
 poetry = "latest"
 postgres = "latest"
 npm = "latest"
-imagemagick = "latest"
 rust = "latest"
 ollama = "latest"
 httpie-go = "latest"
-ffmpeg = "latest"
 gh = "latest"
 k9s = "latest"
 awscli = "latest"
+direnv = "latest"
 sops = "latest"
+ripgrep = "latest"
 kubens = "latest"
 kubent = "latest"
 
@@ -172,11 +173,7 @@ adopt = true
 "brew:checkstyle" = { os = ["macos"] }
 "brew:cloudfoundry-cli" = { os = ["macos"] }
 "brew:curl" = { os = ["macos"] }
-"brew:direnv" = { os = ["macos"] }
-"brew:docker" = { os = ["macos"] }
-"brew:docker-compose" = { os = ["macos"] }
 "brew:ffmpeg-full" = { os = ["macos"] }
-"brew:gh" = { os = ["macos"] }
 "brew:git" = { os = ["macos"] }
 "brew:gnupg" = { os = ["macos"] }
 "brew:graphviz" = { os = ["macos"] }
@@ -185,10 +182,7 @@ adopt = true
 "brew:libpq" = { os = ["macos"] }
 "brew:mongocli" = { os = ["macos"] }
 "brew:mongosh" = { os = ["macos"] }
-"brew:neovim" = { os = ["macos"] }
-"brew:ollama" = { os = ["macos"] }
 "brew:pandoc" = { os = ["macos"] }
-"brew:python@3.13" = { os = ["macos"] }
 "brew:rbenv" = { os = ["macos"] }
 "brew:tree" = { os = ["macos"] }
 "brew:watch" = { os = ["macos"] }
@@ -209,8 +203,6 @@ adopt = true
 "apt:unzip" = "latest"
 "apt:build-essential" = "latest"
 "apt:zsh" = "latest"             # shell activation writes ~/.zshrc; need a zsh to read it
-"apt:direnv" = "latest"
-"apt:neovim" = "latest"
 "apt:ripgrep" = "latest"
 "apt:tree" = "latest"
 "apt:wget" = "latest"
@@ -224,19 +216,14 @@ adopt = true
 "brew-cask:block-goose" = { version = "latest", os = ["macos"] }
 "brew-cask:calibre" = { version = "latest", os = ["macos"] }
 "brew-cask:chatgpt" = { version = "latest", os = ["macos"] }
-"brew-cask:chromedriver" = { version = "latest", os = ["macos"] }
 "brew-cask:claude" = { version = "latest", os = ["macos"] }
-"brew-cask:claude-code" = { version = "latest", os = ["macos"] }
 "brew-cask:codex" = { version = "latest", os = ["macos"] }
 "brew-cask:discord" = { version = "latest", os = ["macos"] }
 "brew-cask:docker-desktop" = { version = "latest", os = ["macos"] }
-"brew-cask:dotnet-sdk" = { version = "latest", os = ["macos"] }
 "brew-cask:expressvpn" = { version = "latest", os = ["macos"] }
-"brew-cask:gcloud-cli" = { version = "latest", os = ["macos"] }
 "brew-cask:github-copilot-app" = { version = "latest", os = ["macos"] }
 "brew-cask:google-chrome" = { version = "latest", os = ["macos"] }
 "brew-cask:google-gemini" = { version = "latest", os = ["macos"] }
-"brew-cask:graalvm-jdk@25" = { version = "latest", os = ["macos"] }
 "brew-cask:grammarly-desktop" = { version = "latest", os = ["macos"] }
 "brew-cask:jetbrains-toolbox" = { version = "latest", os = ["macos"] }
 "brew-cask:kiro" = { version = "latest", os = ["macos"] }
