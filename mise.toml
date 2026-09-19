@@ -74,6 +74,8 @@ VISUAL = "nvim"
 AWS_REGION          = "us-east-1"
 DIRENV_WARN_TIMEOUT = "1m"
 SSH_AUTH_SOCK       = "{{env.HOME}}/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
+A = { age = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IGUyYWNEZyBGNG5LMVB0NDIvTTM2SGFlVmQ1aW9Qd0F4WDdZNHdta2ovbUVnLzNXbWdrCmI0OU8vVlh1aE1aT3lqU05QSkJCaHpTNEpSMWYyZHYzZGw3WTFtaVZodEEKLT4gflp9QC1ncmVhc2UKN2RIaWRKeUlsSWcKLS0tIEVwQzEwVEFrWFBkUzB4Z0RQZk1DdG1jbHFPSFZtc1ZqaXRXTHU5cTVSV2MKza8aQMDNudLoqvvD6se1XdVGy8+6TXdpROzZn4gWGfy9" }
+DB_PASSWORD = { age = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IGUyYWNEZyBiYWRQNHhuTUREZ09ZSmRQeFBQZjd6eDAxL3lTeGxHc3RwaUxoV0tiVGxvCktOUWl3LzRlb0dkcitZY2pwWXlSdWN5Uy9YSTFiUzF2a1kwZEY3d2NJcjgKLT4gUTdfJHsrLWdyZWFzZSApbTNiIG9hJGlPIEZGK04yOCBCc0E4ZkkKVHkrS3dLa3pWQ2s2K1NEN01PMnB5eTRJOS9Zd0N5RHFhZnBnN3FGdUNnCi0tLSBJdys2QUtWSHRLSjNzVmcvQTlNcmlSK1dFNWhuRjlQVHVtRlNVdStUM1RRCltqIAxY3dTy1IoZBURs7i5F/AiIs+RFGCtEwxgo+w4CzLDj+Q" }
 
 # --- secrets ---------------------------------------------------------------
 # Inline because josh-env is a private repo — same as environment.sh did. To
