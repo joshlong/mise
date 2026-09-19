@@ -94,6 +94,15 @@ enabled = true
 [bootstrap.hooks.final]
 run = '''
 ZSHRC="$HOME/.zshrc"
+
+# Migration: earlier versions of bootstrap.sh wrote this block itself, under a
+# different marker. Strip it, or machines bootstrapped before the move end up
+# sourcing oh-my-zsh twice.
+if grep -qF "# >>> bootstrap.sh: oh-my-zsh >>>" "$ZSHRC" 2>/dev/null; then
+  sed -i.bak "/# >>> bootstrap.sh: oh-my-zsh >>>/,/# <<< bootstrap.sh: oh-my-zsh <<</d" "$ZSHRC"
+  echo "oh-my-zsh: removed legacy bootstrap.sh block (backup: $ZSHRC.bak)"
+fi
+
 MARKER="# >>> mise bootstrap: oh-my-zsh >>>"
 if grep -qF "$MARKER" "$ZSHRC" 2>/dev/null; then
   echo "oh-my-zsh: already wired in $ZSHRC"
