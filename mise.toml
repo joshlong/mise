@@ -14,7 +14,9 @@
 # What mise does NOT own stays in environment.sh, which ~/.zshrc sources:
 #   brew shellenv, oh-my-zsh + ZSH_THEME/plugins, docker completions/compinit,
 #   `rbenv init -`, `direnv hook zsh`, kiro integration, and `mise activate`.
-# mise deliberately does not manage ~/.zshrc; environment.sh owns shell init.
+# NOTE: mise now DOES manage shell init -- see [bootstrap.mise_shell_activate]
+# below. The old split (environment.sh owns ~/.zshrc) died with josh-env; with
+# nothing owning shell init, a new shell got no PATH and no [env] at all.
 #
 # IMPORTANT — this config must be loaded GLOBALLY, not just as a project
 # config. A project mise.toml only applies inside its own directory, so from
@@ -100,6 +102,16 @@ k     = "kubectl"
 dog   = "cat"
 uao   = "java {{env.HOME}}/josh-env/bin/uao.java"
 uaok  = "{{env.HOME}}/josh-env/bin/uao.kts"
+
+# ------------------------------------------------------- shell activation ----
+# Without this, nothing ever writes ~/.zshrc, so a brand new shell has no mise,
+# no tools and no [env]. `enabled` is the only accepted key; it expands to two
+# managed blocks: ~/.zprofile (--shims, for login/non-interactive) and ~/.zshrc
+# (activate, for interactive). Both call bare `mise`, which is why bootstrap.sh
+# must put ~/.local/bin on PATH via ~/.zshenv first.
+
+[bootstrap.mise_shell_activate.zsh]
+enabled = true
 
 # --------------------------------------------------------------- repos ----
 

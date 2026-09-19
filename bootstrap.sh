@@ -9,7 +9,8 @@ rm -rf ~/.config/mise/
 # --- install mise -----------------------------------------------------------
 curl -fsSL https://mise.run | sh
 
-# the installer edits your rc files, but *this* shell knows nothing about them.
+# the mise.run installer only PRINTS the suggested activation line -- it does not
+# edit any rc file. So wire this shell up by hand.
 export PATH="$HOME/.local/bin:$PATH"
 # shims, not `mise activate`: activate installs a prompt hook, and a script has
 # no prompt. shims are real executables, so installed tools resolve immediately.
@@ -20,6 +21,23 @@ export PATH="$MISE_DATA_DIR/shims:$PATH"
 export MISE_EXPERIMENTAL=1
 
 mise --version
+
+# --- make mise reachable from every future shell ----------------------------
+# mise.toml's [bootstrap.mise_shell_activate] writes `eval "$(mise activate zsh)"`
+# into ~/.zshrc and ~/.zprofile, but those call BARE `mise` -- and ~/.local/bin is
+# NOT on the default macOS PATH (/bin:/usr/bin:/usr/ucb:/usr/local/bin). Without
+# this, a new shell just says "mise: command not found" and you get no tools and
+# no [env]. ~/.zshenv is the right file: zsh reads it before .zprofile/.zshrc.
+ZSHENV="$HOME/.zshenv"
+MARKER="# >>> bootstrap.sh: mise on PATH >>>"
+if ! grep -qF "$MARKER" "$ZSHENV" 2>/dev/null; then
+  {
+    echo "$MARKER"
+    echo 'export PATH="$HOME/.local/bin:$PATH"'
+    echo "# <<< bootstrap.sh: mise on PATH <<<"
+  } >> "$ZSHENV"
+  echo "added ~/.local/bin to PATH in $ZSHENV"
+fi
 
 # === phase 1: break the chicken-and-egg =====================================
 # The repo's mise.toml carries age-encrypted [env] values, and mise decrypts
