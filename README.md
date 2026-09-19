@@ -32,7 +32,11 @@ mise use -g bitwarden-cli
 bw login
 export BW_SESSION=$(bw unlock --raw)
 mkdir -p ~/.config/mise
-bw get notes "mise-bootstrap-private-ssh-key" > ~/.ssh/id_ed25519
+
+KEY=$HOME/.ssh/id_ed25519
+bw get notes "mise-bootstrap-private-ssh-key" > $KEY
+chmod 600 $KEY
+
 mise bootstrap --adopt https://github.com/joshlong/mise.git
 
 ```
