@@ -32,6 +32,13 @@ min_version = "2026.9.11"
 # Mask these in captured task output. (Does not encrypt the file.)
 redactions = ["*_API_KEY", "*_ACCESS_TOKEN", "*_SECRET_KEY", "*_ACCESS_KEY", "*_AUTH_HEADER"]
 
+#
+[settings]
+experimental = true
+
+[settings.age]
+ssh_identity_files = ["~/.ssh/mise_private_key"]
+
 # ---------------------------------------------------------------- tools ----
 
 [tools]
