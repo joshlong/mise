@@ -28,7 +28,8 @@ gradle = "9.7.1"
 kotlin = { version = "2.4.20", asset_pattern = "kotlin-compiler-*.zip", bin_path = "kotlinc/bin" }
 maven = "3.9.16"
 kubectl = "latest"
-
+jq = "latest"
+gh = "latest"
 
 # ------------------------------------------------- environment variables ----
 
@@ -202,7 +203,6 @@ adopt = true
 "apt:direnv" = "latest"
 "apt:neovim" = "latest"
 "apt:ripgrep" = "latest"
-"apt:jq" = "latest"
 "apt:tree" = "latest"
 "apt:wget" = "latest"
 "apt:python3-tk" = "latest"
