@@ -3,7 +3,13 @@
 min_version = "2026.9.11"
 
 # Mask these in captured task output. (Does not encrypt the file.)
-redactions = ["*_API_KEY", "*_ACCESS_TOKEN", "*_SECRET_KEY", "*_ACCESS_KEY", "*_AUTH_HEADER"]
+redactions = [
+  "*_ACCESS_KEY",
+  "*_ACCESS_TOKEN",
+  "*_API_KEY",
+  "*_AUTH_HEADER",
+  "*_SECRET_KEY",
+]
 
 #
 [settings]
@@ -15,12 +21,13 @@ ssh_identity_files = ["~/.ssh/mise_private_key"]
 # ---------------------------------------------------------------- tools ----
 
 [tools]
-java   = "graalvm-community-25.0.2"
-jbang  = "0.141.0"
+java = "graalvm-community-25.0.2"
+jbang = "0.141.0"
 python = "3.14.7"
 gradle = "9.7.1"
 kotlin = { version = "2.4.20", asset_pattern = "kotlin-compiler-*.zip", bin_path = "kotlinc/bin" }
 maven = "3.9.16"
+kubectl = "latest"
 
 
 # ------------------------------------------------- environment variables ----
@@ -49,18 +56,18 @@ _.path = [
 ]
 
 # rest of brew shellenv (its fpath half is in the final hook)
-HOMEBREW_PREFIX     = "/opt/homebrew"
-HOMEBREW_CELLAR     = "/opt/homebrew/Cellar"
+HOMEBREW_PREFIX = "/opt/homebrew"
+HOMEBREW_CELLAR = "/opt/homebrew/Cellar"
 HOMEBREW_REPOSITORY = "/opt/homebrew"
-INFOPATH            = "/opt/homebrew/share/info"
+INFOPATH = "/opt/homebrew/share/info"
 
-ZSH    = "{{env.HOME}}/.oh-my-zsh"
+ZSH = "{{env.HOME}}/.oh-my-zsh"
 EDITOR = "nvim"
 VISUAL = "nvim"
 
-AWS_REGION          = "us-east-1"
+AWS_REGION = "us-east-1"
 DIRENV_WARN_TIMEOUT = "1m"
-SSH_AUTH_SOCK       = "{{env.HOME}}/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
+SSH_AUTH_SOCK = "{{env.HOME}}/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
 A = { age = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IGUyYWNEZyBGNG5LMVB0NDIvTTM2SGFlVmQ1aW9Qd0F4WDdZNHdta2ovbUVnLzNXbWdrCmI0OU8vVlh1aE1aT3lqU05QSkJCaHpTNEpSMWYyZHYzZGw3WTFtaVZodEEKLT4gflp9QC1ncmVhc2UKN2RIaWRKeUlsSWcKLS0tIEVwQzEwVEFrWFBkUzB4Z0RQZk1DdG1jbHFPSFZtc1ZqaXRXTHU5cTVSV2MKza8aQMDNudLoqvvD6se1XdVGy8+6TXdpROzZn4gWGfy9" }
 DB_PASSWORD = { age = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IGUyYWNEZyBiYWRQNHhuTUREZ09ZSmRQeFBQZjd6eDAxL3lTeGxHc3RwaUxoV0tiVGxvCktOUWl3LzRlb0dkcitZY2pwWXlSdWN5Uy9YSTFiUzF2a1kwZEY3d2NJcjgKLT4gUTdfJHsrLWdyZWFzZSApbTNiIG9hJGlPIEZGK04yOCBCc0E4ZkkKVHkrS3dLa3pWQ2s2K1NEN01PMnB5eTRJOS9Zd0N5RHFhZnBnN3FGdUNnCi0tLSBJdys2QUtWSHRLSjNzVmcvQTlNcmlSK1dFNWhuRjlQVHVtRlNVdStUM1RRCltqIAxY3dTy1IoZBURs7i5F/AiIs+RFGCtEwxgo+w4CzLDj+Q" }
 
@@ -69,12 +76,12 @@ DB_PASSWORD = { age = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IGUyYWNEZ
 # Applied by `mise activate` on directory entry (bash/zsh/fish only).
 
 [shell_alias]
-cfp   = "cfp.sh"
+cfp = "cfp.sh"
 emacs = "emacs -nw"
-k     = "kubectl"
-dog   = "cat"
-uao   = "java {{env.HOME}}/josh-env/bin/uao.java"
-uaok  = "{{env.HOME}}/josh-env/bin/uao.kts"
+k = "kubectl"
+dog = "cat"
+uao = "java {{env.HOME}}/josh-env/bin/uao.java"
+uaok = "{{env.HOME}}/josh-env/bin/uao.kts"
 
 # ------------------------------------------------------- shell activation ----
 # Without this, nothing ever writes ~/.zshrc, so a brand new shell has no mise,
@@ -137,118 +144,117 @@ adopt = true
 [bootstrap.packages]
 
 # --- formulae ---
-"brew:antigen"                    = { version = "latest", os = ["macos"] }
-"brew:age"                        = { version = "latest", os = ["macos"] }
-"brew:arconia-io/tap/arconia-cli" = { version = "latest", os = ["macos"] }
-"brew:awscli"                     = { version = "latest", os = ["macos"] }
-"brew:bash"                       = { version = "latest", os = ["macos"] }
-"brew:bitwarden-cli"              = { version = "latest", os = ["macos"] }
-"brew:block-goose-cli"            = { version = "latest", os = ["macos"] }
-"brew:checkstyle"                 = { version = "latest", os = ["macos"] }
-"brew:cloudfoundry-cli"           = { version = "latest", os = ["macos"] }
-"brew:curl"                       = { version = "latest", os = ["macos"] }
-"brew:direnv"                     = { version = "latest", os = ["macos"] }
-"brew:docker"                     = { version = "latest", os = ["macos"] }
-"brew:docker-compose"             = { version = "latest", os = ["macos"] }
-"brew:ffmpeg"                     = { version = "latest", os = ["macos"] }
-"brew:ffmpeg-full"                = { version = "latest", os = ["macos"] }
-"brew:gh"                         = { version = "latest", os = ["macos"] }
-"brew:git"                        = { version = "latest", os = ["macos"] }
-"brew:gnupg"                      = { version = "latest", os = ["macos"] }
-"brew:graphviz"                   = { version = "latest", os = ["macos"] }
-"brew:grpcurl"                    = { version = "latest", os = ["macos"] }
-"brew:hey"                        = { version = "latest", os = ["macos"] }
-"brew:httpie"                     = { version = "latest", os = ["macos"] }
-"brew:imagemagick"                = { version = "latest", os = ["macos"] }
-"brew:imagemagick-full"           = { version = "latest", os = ["macos"] }
-"brew:kubectx"                    = { version = "latest", os = ["macos"] }
-"brew:kubent"                     = { version = "latest", os = ["macos"] }
-"brew:kubernetes-cli"             = { version = "latest", os = ["macos"] }
-"brew:libpq"                      = { version = "latest", os = ["macos"] }
-"brew:mongocli"                   = { version = "latest", os = ["macos"] }
-"brew:mongosh"                    = { version = "latest", os = ["macos"] }
-"brew:neovim"                     = { version = "latest", os = ["macos"] }
-"brew:ollama"                     = { version = "latest", os = ["macos"] }
-"brew:pandoc"                     = { version = "latest", os = ["macos"] }
-"brew:python@3.13"                = { version = "latest", os = ["macos"] }
-"brew:rbenv"                      = { version = "latest", os = ["macos"] }
-"brew:ruby"                       = { version = "latest", os = ["macos"] }
-"brew:rustup"                     = { version = "latest", os = ["macos"] }
-"brew:tree"                       = { version = "latest", os = ["macos"] }
-"brew:uv"                         = { version = "latest", os = ["macos"] }
-"brew:watch"                      = { version = "latest", os = ["macos"] }
-"brew:wget"                        = { version = "latest", os = ["macos"] }
-"brew:ytt"                         = { version = "latest", os = ["macos"] }
-"brew:zimg"                        = { version = "latest", os = ["macos"] }
-"brew:zsh"                         = { version = "latest", os = ["macos"] }
-"brew-cask:firefox"                = { version = "latest", os = ["macos"] }
+"brew:antigen" = { os = ["macos"] }
+"brew:age" = { os = ["macos"] }
+"brew:arconia-io/tap/arconia-cli" = { os = ["macos"] }
+"brew:awscli" = { os = ["macos"] }
+"brew:bash" = { os = ["macos"] }
+"brew:bitwarden-cli" = { os = ["macos"] }
+"brew:block-goose-cli" = { os = ["macos"] }
+"brew:checkstyle" = { os = ["macos"] }
+"brew:cloudfoundry-cli" = { os = ["macos"] }
+"brew:curl" = { os = ["macos"] }
+"brew:direnv" = { os = ["macos"] }
+"brew:docker" = { os = ["macos"] }
+"brew:docker-compose" = { os = ["macos"] }
+"brew:ffmpeg" = { os = ["macos"] }
+"brew:ffmpeg-full" = { os = ["macos"] }
+"brew:gh" = { os = ["macos"] }
+"brew:git" = { os = ["macos"] }
+"brew:gnupg" = { os = ["macos"] }
+"brew:graphviz" = { os = ["macos"] }
+"brew:grpcurl" = { os = ["macos"] }
+"brew:hey" = { os = ["macos"] }
+"brew:httpie" = { os = ["macos"] }
+"brew:imagemagick" = { os = ["macos"] }
+"brew:imagemagick-full" = { os = ["macos"] }
+"brew:kubectx" = { os = ["macos"] }
+"brew:kubent" = { os = ["macos"] }
+"brew:libpq" = { os = ["macos"] }
+"brew:mongocli" = { os = ["macos"] }
+"brew:mongosh" = { os = ["macos"] }
+"brew:neovim" = { os = ["macos"] }
+"brew:ollama" = { os = ["macos"] }
+"brew:pandoc" = { os = ["macos"] }
+"brew:python@3.13" = { os = ["macos"] }
+"brew:rbenv" = { os = ["macos"] }
+"brew:ruby" = { os = ["macos"] }
+"brew:rustup" = { os = ["macos"] }
+"brew:tree" = { os = ["macos"] }
+"brew:uv" = { os = ["macos"] }
+"brew:watch" = { os = ["macos"] }
+"brew:wget" = { os = ["macos"] }
+"brew:ytt" = { os = ["macos"] }
+"brew:zimg" = { os = ["macos"] }
+"brew:zsh" = { os = ["macos"] }
+"brew-cask:firefox" = { os = ["macos"] }
 # --- linux (apt self-gates; these never run on macOS) ---
 # Deliberately minimal: enough to work in a container. The brew list above is
 # the Mac's full set and is gated off here -- on linux-arm64 mise would resolve
 # ~248 formulae against formulae.brew.sh and most have no bottle.
-"apt:git"          = "latest"
-"apt:curl"         = "latest"
+"apt:git" = "latest"
+"apt:curl" = "latest"
 "apt:ca-certificates" = "latest"
-"apt:gnupg"        = "latest"
-"apt:unzip"        = "latest"
+"apt:gnupg" = "latest"
+"apt:unzip" = "latest"
 "apt:build-essential" = "latest"
-"apt:zsh"          = "latest"   # shell activation writes ~/.zshrc; need a zsh to read it
-"apt:direnv"       = "latest"
-"apt:neovim"       = "latest"
-"apt:ripgrep"      = "latest"
-"apt:jq"           = "latest"
-"apt:tree"         = "latest"
-"apt:wget"         = "latest"
-"apt:python3-tk"   = "latest"
+"apt:zsh" = "latest"             # shell activation writes ~/.zshrc; need a zsh to read it
+"apt:direnv" = "latest"
+"apt:neovim" = "latest"
+"apt:ripgrep" = "latest"
+"apt:jq" = "latest"
+"apt:tree" = "latest"
+"apt:wget" = "latest"
+"apt:python3-tk" = "latest"
 
-"flatpak:com.spotify.Client"       = "latest"
-"brew:git-gui"                    = { version = "latest", os = ["macos"] }
-"brew:python-tk@3.14"             = { version = "latest", os = ["macos"] }
-"brew-cask:adobe-creative-cloud"   = { version = "latest", os = ["macos"] }
-"brew-cask:affinity"               = { version = "latest", os = ["macos"] }
-"brew-cask:block-goose"            = { version = "latest", os = ["macos"] }
-"brew-cask:calibre"                = { version = "latest", os = ["macos"] }
-"brew-cask:chatgpt"                = { version = "latest", os = ["macos"] }
-"brew-cask:chromedriver"           = { version = "latest", os = ["macos"] }
-"brew-cask:claude"                 = { version = "latest", os = ["macos"] }
-"brew-cask:claude-code"            = { version = "latest", os = ["macos"] }
-"brew-cask:codex"                  = { version = "latest", os = ["macos"] }
-"brew-cask:discord"                = { version = "latest", os = ["macos"] }
-"brew-cask:docker-desktop"         = { version = "latest", os = ["macos"] }
-"brew-cask:dotnet-sdk"             = { version = "latest", os = ["macos"] }
-"brew-cask:expressvpn"             = { version = "latest", os = ["macos"] }
-"brew-cask:gcloud-cli"             = { version = "latest", os = ["macos"] }
-"brew-cask:github-copilot-app"     = { version = "latest", os = ["macos"] }
-"brew-cask:google-chrome"          = { version = "latest", os = ["macos"] }
-"brew-cask:google-gemini"          = { version = "latest", os = ["macos"] }
-"brew-cask:graalvm-jdk@25"         = { version = "latest", os = ["macos"] }
-"brew-cask:grammarly-desktop"      = { version = "latest", os = ["macos"] }
-"brew-cask:jetbrains-toolbox"      = { version = "latest", os = ["macos"] }
-"brew-cask:kiro"                   = { version = "latest", os = ["macos"] }
-"brew-cask:kiro-cli"               = { version = "latest", os = ["macos"] }
-"brew-cask:microsoft-office"       = { version = "latest", os = ["macos"] }
-"brew-cask:microsoft-teams"        = { version = "latest", os = ["macos"] }
-"brew-cask:obsidian"               = { version = "latest", os = ["macos"] }
-"brew-cask:ollama-app"             = { version = "latest", os = ["macos"] }
-"brew-cask:omnigraffle"            = { version = "latest", os = ["macos"] }
-"brew-cask:opencode-desktop"       = { version = "latest", os = ["macos"] }
-"brew-cask:proton-drive"           = { version = "latest", os = ["macos"] }
-"brew-cask:proton-mail"            = { version = "latest", os = ["macos"] }
-"brew-cask:proton-mail-bridge"     = { version = "latest", os = ["macos"] }
-"brew-cask:protonvpn"              = { version = "latest", os = ["macos"] }
-"brew-cask:raycast"                = { version = "latest", os = ["macos"] }
-"brew-cask:signal"                 = { version = "latest", os = ["macos"] }
-"brew-cask:slack"                  = { version = "latest", os = ["macos"] }
-"brew-cask:spotify"                = { version = "latest", os = ["macos"] }
-"brew-cask:steam"                  = { version = "latest", os = ["macos"] }
-"brew-cask:sublime-text"           = { version = "latest", os = ["macos"] }
-"brew-cask:synology-drive"         = { version = "latest", os = ["macos"] }
-"brew-cask:telegram"               = { version = "latest", os = ["macos"] }
-"brew-cask:visual-studio-code"     = { version = "latest", os = ["macos"] }
-"brew-cask:vlc"                    = { version = "latest", os = ["macos"] }
-"brew-cask:whatsapp"               = { version = "latest", os = ["macos"] }
-"brew-cask:zoom"                   = { version = "latest", os = ["macos"] }
-"brew-cask:sqlcl"                  = { version = "latest", os = ["macos"] }
+"flatpak:com.spotify.Client" = "latest"
+"brew:git-gui" = { version = "latest", os = ["macos"] }
+"brew:python-tk@3.14" = { version = "latest", os = ["macos"] }
+"brew-cask:adobe-creative-cloud" = { version = "latest", os = ["macos"] }
+"brew-cask:affinity" = { version = "latest", os = ["macos"] }
+"brew-cask:block-goose" = { version = "latest", os = ["macos"] }
+"brew-cask:calibre" = { version = "latest", os = ["macos"] }
+"brew-cask:chatgpt" = { version = "latest", os = ["macos"] }
+"brew-cask:chromedriver" = { version = "latest", os = ["macos"] }
+"brew-cask:claude" = { version = "latest", os = ["macos"] }
+"brew-cask:claude-code" = { version = "latest", os = ["macos"] }
+"brew-cask:codex" = { version = "latest", os = ["macos"] }
+"brew-cask:discord" = { version = "latest", os = ["macos"] }
+"brew-cask:docker-desktop" = { version = "latest", os = ["macos"] }
+"brew-cask:dotnet-sdk" = { version = "latest", os = ["macos"] }
+"brew-cask:expressvpn" = { version = "latest", os = ["macos"] }
+"brew-cask:gcloud-cli" = { version = "latest", os = ["macos"] }
+"brew-cask:github-copilot-app" = { version = "latest", os = ["macos"] }
+"brew-cask:google-chrome" = { version = "latest", os = ["macos"] }
+"brew-cask:google-gemini" = { version = "latest", os = ["macos"] }
+"brew-cask:graalvm-jdk@25" = { version = "latest", os = ["macos"] }
+"brew-cask:grammarly-desktop" = { version = "latest", os = ["macos"] }
+"brew-cask:jetbrains-toolbox" = { version = "latest", os = ["macos"] }
+"brew-cask:kiro" = { version = "latest", os = ["macos"] }
+"brew-cask:kiro-cli" = { version = "latest", os = ["macos"] }
+"brew-cask:microsoft-office" = { version = "latest", os = ["macos"] }
+"brew-cask:microsoft-teams" = { version = "latest", os = ["macos"] }
+"brew-cask:obsidian" = { version = "latest", os = ["macos"] }
+"brew-cask:ollama-app" = { version = "latest", os = ["macos"] }
+"brew-cask:omnigraffle" = { version = "latest", os = ["macos"] }
+"brew-cask:opencode-desktop" = { version = "latest", os = ["macos"] }
+"brew-cask:proton-drive" = { version = "latest", os = ["macos"] }
+"brew-cask:proton-mail" = { version = "latest", os = ["macos"] }
+"brew-cask:proton-mail-bridge" = { version = "latest", os = ["macos"] }
+"brew-cask:protonvpn" = { version = "latest", os = ["macos"] }
+"brew-cask:raycast" = { version = "latest", os = ["macos"] }
+"brew-cask:signal" = { version = "latest", os = ["macos"] }
+"brew-cask:slack" = { version = "latest", os = ["macos"] }
+"brew-cask:spotify" = { version = "latest", os = ["macos"] }
+"brew-cask:steam" = { version = "latest", os = ["macos"] }
+"brew-cask:sublime-text" = { version = "latest", os = ["macos"] }
+"brew-cask:synology-drive" = { version = "latest", os = ["macos"] }
+"brew-cask:telegram" = { version = "latest", os = ["macos"] }
+"brew-cask:visual-studio-code" = { version = "latest", os = ["macos"] }
+"brew-cask:vlc" = { version = "latest", os = ["macos"] }
+"brew-cask:whatsapp" = { version = "latest", os = ["macos"] }
+"brew-cask:zoom" = { version = "latest", os = ["macos"] }
+"brew-cask:sqlcl" = { version = "latest", os = ["macos"] }
 # ----------------------------------------------------------------- task ----
 
 [tasks.bootstrap]
