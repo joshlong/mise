@@ -25,12 +25,11 @@ cmake = "latest"
 claude = "latest"
 docker-compose = "latest"
 chromedriver = "latest"
-youtube-dl = "latest"
 java = "graalvm-community-25.0.2"
 jbang = "0.141.0"
 azure-cli = "latest"
 dotnet-core = "latest"
-python = "3.14.7"
+python = "3.14"
 gemini-cli = "latest"
 neovim = "latest"
 google-java-format = "latest"
@@ -57,6 +56,8 @@ sops = "latest"
 ripgrep = "latest"
 kubens = "latest"
 kubent = "latest"
+yt-dlp ="latest"
+
 
 # ------------------------------------------------- environment variables ----
 
@@ -87,7 +88,11 @@ VISUAL = "nvim"
 
 AWS_REGION = "us-east-1"
 DIRENV_WARN_TIMEOUT = "1m"
-SSH_AUTH_SOCK = "{{env.HOME}}/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
+# macOS only. [env] silently IGNORES an `os = [...]` key -- it is accepted and
+# then not applied -- so the gate has to be a template. The else branch must
+# pass the inherited value through: an empty template still exports VAR='',
+# which on Linux would clobber a real ssh-agent rather than leave it alone.
+SSH_AUTH_SOCK = "{% if os() == 'macos' %}{{ env.HOME }}/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock{% else %}{{ env.SSH_AUTH_SOCK | default(value='') }}{% endif %}"
 
 
 OPENAI_KEY = { age = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IGUyYWNEZyBsaW9XR3NRV2FWSTFBOEY3aEtyUy84TTJmUFlNbXc1M1BPYXpjdEo1cG5nCjd6dUQ0OTNTQjVpbFhhcFdWUWxtdWU2ZSs0ZTdzWU9iSFNwb05nZk5PMFkKLT4gNSJjci1ncmVhc2UgQSA1M0wgNwpTMWQ0THlFTDh4UVBjOU9ObHRlNk5KazJ6V3FSdmRaUXpkSzRTUXAwZ0grZDlrakEybXZaYVNTejZSNVIrNU1CCnd4MzNKZ1krOXhrT2hUdXdxRVhmNGtPWk5QTGZweWFPWnVqdTFINnlkd1VXZ1pjVExsMkJrZ2NMCi0tLSBZclJVWmFQOVc2TFhCTXBEdDhPazkrNmpCQUcxbzYyb3BxWWdxbk1OcE1JCjodQv7IBW1inELwQe2C+l6YHjCZi9nSg3vVPJllOgbUeH5TkfwYadSuGuBSFSEN8BSD8hpxzk22jeC3NBfTiWnUtnSu6aMkL6oL2SDCDpbq45ny" }
@@ -216,7 +221,6 @@ adopt = true
 "apt:unzip" = "latest"
 "apt:build-essential" = "latest"
 "apt:zsh" = "latest"             # shell activation writes ~/.zshrc; need a zsh to read it
-"apt:ripgrep" = "latest"
 "apt:tree" = "latest"
 "apt:wget" = "latest"
 "apt:python3-tk" = "latest"
