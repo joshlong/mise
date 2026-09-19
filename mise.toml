@@ -43,7 +43,20 @@ _.path = [
   "{{env.HOME}}/bin",
   "{{env.HOME}}/.docker/bin",
   "{{env.HOME}}/Library/Application Support/JetBrains/Toolbox/scripts",
+  # `brew shellenv`'s PATH half. Last, so the /opt/homebrew/opt/* overrides
+  # above still win. Previously this arrived only via /etc/paths.d/homebrew,
+  # which the Homebrew *installer* writes -- and mise pours formulae without
+  # running that installer, so a fresh machine could have none of it.
+  "/opt/homebrew/bin",
+  "/opt/homebrew/sbin",
 ]
+
+# The rest of `brew shellenv`, declared rather than eval'd. The rc-file half
+# (fpath) is in the final hook, since fpath is a shell thing.
+HOMEBREW_PREFIX     = "/opt/homebrew"
+HOMEBREW_CELLAR     = "/opt/homebrew/Cellar"
+HOMEBREW_REPOSITORY = "/opt/homebrew"
+INFOPATH            = "/opt/homebrew/share/info"
 
 ZSH    = "{{env.HOME}}/.oh-my-zsh"
 EDITOR = "nvim"
@@ -80,61 +93,58 @@ uaok  = "{{env.HOME}}/josh-env/bin/uao.kts"
 [bootstrap.mise_shell_activate.zsh]
 enabled = true
 
-# oh-my-zsh is cloned by [bootstrap.repos] and ZSH is exported in [env], but
-# nothing SOURCES it -- mise's managed block only handles mise itself. Do that
-# here, in the `final` hook, because it must land AFTER mise's block: $ZSH is a
-# mise [env] value that only exists once `mise activate` has run, and shell
-# activation happens back in the defaults/user phase. `final` runs last of all,
-# after tools and after [tasks.bootstrap].
-#
-# Hooks re-run on every bootstrap, so this has to be idempotent -- hence the
-# marker grep. Valid hook phases: pre/post-packages, -repos, -dotfiles,
-# -defaults, -user, -tools, and final.
-
 [bootstrap.hooks.final]
 run = '''
 ZSHRC="$HOME/.zshrc"
+MARKER="# >>> mise bootstrap: shell init >>>"
 
-# Migration: earlier versions of bootstrap.sh wrote this block itself, under a
-# different marker. Strip it, or machines bootstrapped before the move end up
-# sourcing oh-my-zsh twice.
-if grep -qF "# >>> bootstrap.sh: oh-my-zsh >>>" "$ZSHRC" 2>/dev/null; then
-  sed -i.bak "/# >>> bootstrap.sh: oh-my-zsh >>>/,/# <<< bootstrap.sh: oh-my-zsh <<</d" "$ZSHRC"
-  echo "oh-my-zsh: removed legacy bootstrap.sh block (backup: $ZSHRC.bak)"
-fi
+# Migration: these used to be separate blocks (and before that, bootstrap.sh
+# wrote oh-my-zsh itself). They are one ordered block now, because the ordering
+# is load-bearing -- see the block below. Strip the old markers, or the file
+# accumulates duplicates and sources oh-my-zsh two or three times.
+for legacy in "bootstrap.sh: oh-my-zsh" "mise bootstrap: oh-my-zsh" "mise bootstrap: direnv"; do
+  if grep -qF "# >>> $legacy >>>" "$ZSHRC" 2>/dev/null; then
+    sed -i.bak "/# >>> $legacy >>>/,/# <<< $legacy <<</d" "$ZSHRC"
+    echo "shell init: removed legacy block '$legacy'"
+  fi
+done
 
-MARKER="# >>> mise bootstrap: oh-my-zsh >>>"
 if grep -qF "$MARKER" "$ZSHRC" 2>/dev/null; then
-  echo "oh-my-zsh: already wired in $ZSHRC"
+  echo "shell init: already wired in $ZSHRC"
 else
-  cat >> "$ZSHRC" <<'OMZ'
+  cat >> "$ZSHRC" <<'RC'
 
-# >>> mise bootstrap: oh-my-zsh >>>
+# >>> mise bootstrap: shell init >>>
+# Everything environment.sh used to own. ORDER MATTERS:
+#   1. fpath additions must precede oh-my-zsh, which runs compinit
+#   2. rbenv and direnv install precmd hooks, so they follow oh-my-zsh
+#   3. direnv's docs want its hook after any other precmd hook
+#   4. kiro last; it is conditional on running inside Kiro's terminal
+
+# --- completions (must precede compinit) ---
+# `brew shellenv`'s fpath half; its exports are declared in mise.toml [env].
+[ -d /opt/homebrew/share/zsh/site-functions ] && fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+[ -d "$HOME/.docker/completions" ] && fpath=("$HOME/.docker/completions" $fpath)
+
+# --- oh-my-zsh (runs compinit, picking up the fpath entries above) ---
 export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 ZSH_THEME="robbyrussell"   # change me
 plugins=(git)              # change me
 [ -r "$ZSH/oh-my-zsh.sh" ] && source "$ZSH/oh-my-zsh.sh"
-# <<< mise bootstrap: oh-my-zsh <<<
-OMZ
-  echo "oh-my-zsh: appended block to $ZSHRC"
-fi
 
-# direnv, same story: `brew:direnv` installs the binary and [env] sets
-# DIRENV_WARN_TIMEOUT, but the shell hook lived in environment.sh and went with
-# it. Without `direnv hook zsh` nothing watches for .envrc on cd.
-# Appended AFTER oh-my-zsh on purpose: direnv's hook installs a precmd, and
-# direnv's own docs want it last so its precmd runs after any others.
-DIRENV_MARKER="# >>> mise bootstrap: direnv >>>"
-if grep -qF "$DIRENV_MARKER" "$ZSHRC" 2>/dev/null; then
-  echo "direnv: already wired in $ZSHRC"
-else
-  cat >> "$ZSHRC" <<'DIRENV'
+# --- rbenv ---
+command -v rbenv >/dev/null && eval "$(rbenv init - zsh)"
 
-# >>> mise bootstrap: direnv >>>
+# --- direnv (after the other precmd hooks) ---
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
-# <<< mise bootstrap: direnv <<<
-DIRENV
-  echo "direnv: appended hook to $ZSHRC"
+
+# --- kiro terminal integration ---
+if [ "$TERM_PROGRAM" = "kiro" ] && command -v kiro >/dev/null; then
+  . "$(kiro --locate-shell-integration-path zsh)"
+fi
+# <<< mise bootstrap: shell init <<<
+RC
+  echo "shell init: appended block to $ZSHRC"
 fi
 '''
 
@@ -154,8 +164,6 @@ adopt = true
 "arconia-io/tap" = "https://github.com/arconia-io/homebrew-tap.git"
 
 # ------------------------------------------------------- system packages ----
-# sync mise.toml with homebrew packages installed manually: 
-# mise bootstrap packages import --manager brew
 
 [bootstrap.packages]
 
@@ -256,7 +264,6 @@ adopt = true
 "brew-cask:sqlcl"                  = "latest"
 
 # ----------------------------------------------------------------- task ----
-# Runs last, on every bootstrap. Keep it idempotent.
 
 [tasks.bootstrap]
 description = "Post-install sanity checks"
