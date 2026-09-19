@@ -109,6 +109,24 @@ plugins=(git)              # change me
 OMZ
   echo "oh-my-zsh: appended block to $ZSHRC"
 fi
+
+# direnv, same story: `brew:direnv` installs the binary and [env] sets
+# DIRENV_WARN_TIMEOUT, but the shell hook lived in environment.sh and went with
+# it. Without `direnv hook zsh` nothing watches for .envrc on cd.
+# Appended AFTER oh-my-zsh on purpose: direnv's hook installs a precmd, and
+# direnv's own docs want it last so its precmd runs after any others.
+DIRENV_MARKER="# >>> mise bootstrap: direnv >>>"
+if grep -qF "$DIRENV_MARKER" "$ZSHRC" 2>/dev/null; then
+  echo "direnv: already wired in $ZSHRC"
+else
+  cat >> "$ZSHRC" <<'DIRENV'
+
+# >>> mise bootstrap: direnv >>>
+command -v direnv >/dev/null && eval "$(direnv hook zsh)"
+# <<< mise bootstrap: direnv <<<
+DIRENV
+  echo "direnv: appended hook to $ZSHRC"
+fi
 '''
 
 # --------------------------------------------------------------- repos ----
