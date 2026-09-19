@@ -25,12 +25,15 @@ cmake = "latest"
 claude = "latest"
 docker-compose = "latest"
 chromedriver = "latest"
-youtube-dl="latest"
+youtube-dl = "latest"
 java = "graalvm-community-25.0.2"
 jbang = "0.141.0"
 azure-cli = "latest"
-dotnet-core =  "latest"
+dotnet-core = "latest"
 python = "3.14.7"
+gemini-cli = "latest"
+google-java-format = "latest"
+gcloud = "latest"
 gradle = "9.7.1"
 docker-cli = "latest"
 kotlin = { version = "2.4.20", asset_pattern = "kotlin-compiler-*.zip", bin_path = "kotlinc/bin" }
@@ -40,10 +43,12 @@ jq = "latest"
 go = "latest"
 uv = "latest"
 poetry = "latest"
+postgres = "latest"
 npm = "latest"
 imagemagick = "latest"
 rust = "latest"
 ollama = "latest"
+httpie-go = "latest"
 ffmpeg = "latest"
 gh = "latest"
 k9s = "latest"
@@ -170,19 +175,13 @@ adopt = true
 "brew:direnv" = { os = ["macos"] }
 "brew:docker" = { os = ["macos"] }
 "brew:docker-compose" = { os = ["macos"] }
-"brew:ffmpeg" = { os = ["macos"] }
 "brew:ffmpeg-full" = { os = ["macos"] }
 "brew:gh" = { os = ["macos"] }
 "brew:git" = { os = ["macos"] }
 "brew:gnupg" = { os = ["macos"] }
 "brew:graphviz" = { os = ["macos"] }
 "brew:grpcurl" = { os = ["macos"] }
-"brew:hey" = { os = ["macos"] }
-"brew:httpie" = { os = ["macos"] }
-"brew:imagemagick" = { os = ["macos"] }
 "brew:imagemagick-full" = { os = ["macos"] }
-"brew:kubectx" = { os = ["macos"] }
-"brew:kubent" = { os = ["macos"] }
 "brew:libpq" = { os = ["macos"] }
 "brew:mongocli" = { os = ["macos"] }
 "brew:mongosh" = { os = ["macos"] }
@@ -191,12 +190,10 @@ adopt = true
 "brew:pandoc" = { os = ["macos"] }
 "brew:python@3.13" = { os = ["macos"] }
 "brew:rbenv" = { os = ["macos"] }
-"brew:ruby" = { os = ["macos"] }
-"brew:rustup" = { os = ["macos"] }
 "brew:tree" = { os = ["macos"] }
-"brew:uv" = { os = ["macos"] }
 "brew:watch" = { os = ["macos"] }
 "brew:wget" = { os = ["macos"] }
+"brew:hey" = { os = ["macos"] }
 "brew:ytt" = { os = ["macos"] }
 "brew:zimg" = { os = ["macos"] }
 "brew:zsh" = { os = ["macos"] }
