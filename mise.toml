@@ -114,12 +114,10 @@ SPRING_AI_MINIMAX_API_KEY = "{{ env.MINIMAX_API_KEY }}"
 # Applied by `mise activate` on directory entry (bash/zsh/fish only).
 
 [shell_alias]
-cfp = "cfp.sh"
 emacs = "emacs -nw"
 k = "kubectl"
 dog = "cat"
 uao = "java {{env.HOME}}/josh-env/bin/uao.java"
-uaok = "{{env.HOME}}/josh-env/bin/uao.kts"
 
 # ------------------------------------------------------- shell activation ----
 # Without this, nothing ever writes ~/.zshrc, so a brand new shell has no mise,
