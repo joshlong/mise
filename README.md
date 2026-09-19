@@ -27,17 +27,14 @@ mise bootstrap --adopt https://github.com/joshlong/mise.git
 ## notes from claude i should look into 
 
 ```
-
 curl https://mise.run | sh
-mise use -g bitwarden-cli                  # no auth needed for either step
-bw login                                   # ← master password + 2FA; the only thing from your head
+mise use -g bitwarden-cli
+bw login
 export BW_SESSION=$(bw unlock --raw)
-
 mkdir -p ~/.config/mise
-bw get notes "mise-age" > ~/.config/mise/age.txt
-chmod 600 ~/.config/mise/age.txt
+bw get notes "mise-bootstrap-private-ssh-key" > ~/.ssh/id_ed25519
+mise bootstrap --adopt https://github.com/joshlong/mise.git
 
-bw get notes "github ssh key" > ~/.ssh/id_ed2PS with a PAT
 ```
 
 <!-- 
