@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# `--adopt` git-clones the repo *into* ~/.config/mise, and it hard-errors if that
+# dir already exists and is not a git checkout with an origin remote. So nothing
+# below may create it before the adopt at the bottom.
+rm -rf ~/.config/mise/
+
 # --- install mise -----------------------------------------------------------
 curl -fsSL https://mise.run | sh
 
@@ -17,39 +22,44 @@ export PATH="$MISE_DATA_DIR/shims:$PATH"
 mise --version
 
 # --- bitwarden --------------------------------------------------------------
-mise use -g bitwarden
-mise reshim
+# NOT `mise use -g bitwarden`: it writes ~/.config/mise/config.toml, which makes
+# the adopt below fail with "exists but is not a git checkout". It is also
+# redundant -- the repo already installs `brew:bitwarden-cli`.
 
-# `bw login` exits 1 if you are already logged in, so branch on status instead
-# of assuming a fresh machine -- this script has to be re-runnable.
-BW_STATUS="$(bw status | sed -n 's/.*"status":"\([^"]*\)".*/\1/p')"
-if [ "$BW_STATUS" = "unauthenticated" ]; then
-  bw login   # interactive; do NOT capture, or the prompts get swallowed
-fi
+# # `bw login` exits 1 if you are already logged in, so branch on status instead
+# # of assuming a fresh machine -- this script has to be re-runnable.
+# BW_STATUS="$(bw status | sed -n 's/.*"status":"\([^"]*\)".*/\1/p')"
+# if [ "$BW_STATUS" = "unauthenticated" ]; then
+#   bw login   # interactive; do NOT capture, or the prompts get swallowed
+# fi
 
-# normalize to a known state: lock, then unlock to mint a session key. unlocking
-# an already-unlocked vault errors, and we have no way to recover the existing
-# session key from inside the script.
-bw lock >/dev/null 2>&1 || true
+# # normalize to a known state: lock, then unlock to mint a session key. unlocking
+# # an already-unlocked vault errors, and we have no way to recover the existing
+# # session key from inside the script.
+# bw lock >/dev/null 2>&1 || true
 
-# assign on its own line: `export FOO=$(cmd)` masks cmd's exit status from set -e
-BW_SESSION="$(bw unlock --raw)"
-export BW_SESSION
+# # assign on its own line: `export FOO=$(cmd)` masks cmd's exit status from set -e
+# BW_SESSION="$(bw unlock --raw)"
+# export BW_SESSION
 
-# --- ssh key for age encryption --------------------------------------------
-mkdir -p ~/.config/mise ~/.ssh
+# # --- ssh key for age encryption --------------------------------------------
+# mkdir -p ~/.config/mise ~/.ssh
 
-KEY=$HOME/.ssh/mise_private_key
-PUB_KEY=${KEY}.pub
+# KEY=$HOME/.ssh/mise_private_key
+# PUB_KEY=${KEY}.pub
 
-# create with tight perms *before* writing, so the key is never world-readable
-install -m 600 /dev/null "$KEY"
-bw get notes "mise-bootstrap-private-ssh-key" > "$KEY"
-bw get notes "mise-bootstrap-public-ssh-key" > "$PUB_KEY"
-chmod 644 "$PUB_KEY"
+# # create with tight perms *before* writing, so the key is never world-readable
+# install -m 600 /dev/null "$KEY"
+# bw get notes "mise-bootstrap-private-ssh-key" > "$KEY"
+# bw get notes "mise-bootstrap-public-ssh-key" > "$PUB_KEY"
+# chmod 644 "$PUB_KEY"
 
-mise settings experimental=true
+# bootstrap is experimental. Set it via env, NOT `mise settings experimental=true`
+# -- that also writes ~/.config/mise/config.toml and breaks the adopt.
+export MISE_EXPERIMENTAL=1
 # mise set --age-encrypt --age-ssh-recipient "$PUB_KEY" --prompt DB_PASSWORD
 
 
-mise bootstrap --adopt https://github.com/joshlong/mise.git
+# clones repo -> ~/.config/mise, then: packages -> repos -> tools -> bootstrap task.
+# NOTE: this pulls from GitHub, so local mise.toml edits do nothing until pushed.
+mise bootstrap --adopt https://github.com/joshlong/mise.git --yes

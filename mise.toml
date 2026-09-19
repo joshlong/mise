@@ -124,7 +124,7 @@ adopt = true
 
 # --- formulae ---
 "brew:antigen"                    = "latest"
-"brew:age-keygen"                 = "latest"
+"brew:age"                        = "latest"
 "brew:arconia-io/tap/arconia-cli" = "latest"
 "brew:awscli"                     = "latest"
 "brew:bash"                       = "latest"
