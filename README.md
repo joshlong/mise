@@ -24,3 +24,13 @@ mise bootstrap packages apply --yes
 ```
 mise bootstrap packages import --manager brew
 ```
+
+
+## add a new encrypted secret
+
+enter the following command once ur environment is setup. it'll write it to the closest mise.toml, including the one in the current directory. if none exists, it'll write it. this will read for ur input once u hit enter. this way, the raw value is never in ur console history.
+
+```
+mise set --age-encrypt --age-ssh-recipient ~/.ssh/mise_private_key.pub --prompt MY_KEY
+```
+
