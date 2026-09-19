@@ -209,7 +209,7 @@ adopt = true
 "brew:ytt" = { os = ["macos"] }
 "brew:zimg" = { os = ["macos"] }
 "brew:zsh" = { os = ["macos"] }
-"brew-cask:firefox" = { os = ["macos"] }
+
 # --- linux (apt self-gates; these never run on macOS) ---
 # Deliberately minimal: enough to work in a container. The brew list above is
 # the Mac's full set and is gated off here -- on linux-arm64 mise would resolve
@@ -223,11 +223,9 @@ adopt = true
 "apt:zsh" = "latest"             # shell activation writes ~/.zshrc; need a zsh to read it
 "apt:tree" = "latest"
 "apt:wget" = "latest"
-"apt:python3-tk" = "latest"
 
 "flatpak:com.spotify.Client" = "latest"
 "brew:git-gui" = { version = "latest", os = ["macos"] }
-"brew:python-tk@3.14" = { version = "latest", os = ["macos"] }
 "brew-cask:adobe-creative-cloud" = { version = "latest", os = ["macos"] }
 "brew-cask:affinity" = { version = "latest", os = ["macos"] }
 "brew-cask:block-goose" = { version = "latest", os = ["macos"] }
