@@ -206,7 +206,7 @@ adopt = true
 "brew-cask:vlc"                    = "latest"
 "brew-cask:whatsapp"               = "latest"
 "brew-cask:zoom"                   = "latest"
-"brew-cask:sqlcl"                  = "latest"
+
 
 # ----------------------------------------------------------------- task ----
 # Runs last, on every bootstrap. Keep it idempotent.
