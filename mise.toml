@@ -181,7 +181,7 @@ adopt = true
 "brew:ytt"                         = { version = "latest", os = ["macos"] }
 "brew:zimg"                        = { version = "latest", os = ["macos"] }
 "brew:zsh"                         = { version = "latest", os = ["macos"] }
-"brew-cask:firefox"                = "latest"
+"brew-cask:firefox"                = { version = "latest", os = ["macos"] }
 # --- linux (apt self-gates; these never run on macOS) ---
 # Deliberately minimal: enough to work in a container. The brew list above is
 # the Mac's full set and is gated off here -- on linux-arm64 mise would resolve
@@ -202,54 +202,53 @@ adopt = true
 "apt:python3-tk"   = "latest"
 
 "flatpak:com.spotify.Client"       = "latest"
-"brew:git-gui"                     =  { version="latest", os =["macos"] }
+"brew:git-gui"                    = { version = "latest", os = ["macos"] }
 "brew:python-tk@3.14"             = { version = "latest", os = ["macos"] }
-"brew-cask:adobe-creative-cloud"   = "latest"
-"brew-cask:affinity"               = "latest"
-"brew-cask:block-goose"            = "latest"
-"brew-cask:calibre"                = "latest"
-"brew-cask:chatgpt"                = "latest"
-"brew-cask:chromedriver"           = "latest"
-"brew-cask:claude"                 = "latest"
-"brew-cask:claude-code"            = "latest"
-"brew-cask:codex"                  = "latest"
-"brew-cask:discord"                = "latest"
-"brew-cask:docker-desktop"         = "latest"
-"brew-cask:dotnet-sdk"             = "latest"
-"brew-cask:expressvpn"             = "latest"
-"brew-cask:gcloud-cli"             = "latest"
-"brew-cask:github-copilot-app"     = "latest"
-"brew-cask:google-chrome"          = "latest"
-"brew-cask:google-gemini"          = "latest"
-"brew-cask:graalvm-jdk@25"         = "latest"
-"brew-cask:grammarly-desktop"      = "latest"
-"brew-cask:jetbrains-toolbox"      = "latest"
-"brew-cask:kiro"                   = "latest"
-"brew-cask:kiro-cli"               = "latest"
-"brew-cask:microsoft-office"       = "latest"
-"brew-cask:microsoft-teams"        = "latest"
-"brew-cask:obsidian"               = "latest"
-"brew-cask:ollama-app"             = "latest"
-"brew-cask:omnigraffle"            = "latest"
-"brew-cask:opencode-desktop"       = "latest"
-"brew-cask:proton-drive"           = "latest"
-"brew-cask:proton-mail"            = "latest"
-"brew-cask:proton-mail-bridge"     = "latest"
-"brew-cask:protonvpn"              = "latest"
-"brew-cask:raycast"                = "latest"
-"brew-cask:signal"                 = "latest"
-"brew-cask:slack"                  = "latest"
-"brew-cask:spotify"                = "latest"
-"brew-cask:steam"                  = "latest"
-"brew-cask:sublime-text"           = "latest"
-"brew-cask:synology-drive"         = "latest"
-"brew-cask:telegram"               = "latest"
-"brew-cask:visual-studio-code"     = "latest"
-"brew-cask:vlc"                    = "latest"
-"brew-cask:whatsapp"               = "latest"
-"brew-cask:zoom"                   = "latest"
-"brew-cask:sqlcl"                  = "latest"
-
+"brew-cask:adobe-creative-cloud"   = { version = "latest", os = ["macos"] }
+"brew-cask:affinity"               = { version = "latest", os = ["macos"] }
+"brew-cask:block-goose"            = { version = "latest", os = ["macos"] }
+"brew-cask:calibre"                = { version = "latest", os = ["macos"] }
+"brew-cask:chatgpt"                = { version = "latest", os = ["macos"] }
+"brew-cask:chromedriver"           = { version = "latest", os = ["macos"] }
+"brew-cask:claude"                 = { version = "latest", os = ["macos"] }
+"brew-cask:claude-code"            = { version = "latest", os = ["macos"] }
+"brew-cask:codex"                  = { version = "latest", os = ["macos"] }
+"brew-cask:discord"                = { version = "latest", os = ["macos"] }
+"brew-cask:docker-desktop"         = { version = "latest", os = ["macos"] }
+"brew-cask:dotnet-sdk"             = { version = "latest", os = ["macos"] }
+"brew-cask:expressvpn"             = { version = "latest", os = ["macos"] }
+"brew-cask:gcloud-cli"             = { version = "latest", os = ["macos"] }
+"brew-cask:github-copilot-app"     = { version = "latest", os = ["macos"] }
+"brew-cask:google-chrome"          = { version = "latest", os = ["macos"] }
+"brew-cask:google-gemini"          = { version = "latest", os = ["macos"] }
+"brew-cask:graalvm-jdk@25"         = { version = "latest", os = ["macos"] }
+"brew-cask:grammarly-desktop"      = { version = "latest", os = ["macos"] }
+"brew-cask:jetbrains-toolbox"      = { version = "latest", os = ["macos"] }
+"brew-cask:kiro"                   = { version = "latest", os = ["macos"] }
+"brew-cask:kiro-cli"               = { version = "latest", os = ["macos"] }
+"brew-cask:microsoft-office"       = { version = "latest", os = ["macos"] }
+"brew-cask:microsoft-teams"        = { version = "latest", os = ["macos"] }
+"brew-cask:obsidian"               = { version = "latest", os = ["macos"] }
+"brew-cask:ollama-app"             = { version = "latest", os = ["macos"] }
+"brew-cask:omnigraffle"            = { version = "latest", os = ["macos"] }
+"brew-cask:opencode-desktop"       = { version = "latest", os = ["macos"] }
+"brew-cask:proton-drive"           = { version = "latest", os = ["macos"] }
+"brew-cask:proton-mail"            = { version = "latest", os = ["macos"] }
+"brew-cask:proton-mail-bridge"     = { version = "latest", os = ["macos"] }
+"brew-cask:protonvpn"              = { version = "latest", os = ["macos"] }
+"brew-cask:raycast"                = { version = "latest", os = ["macos"] }
+"brew-cask:signal"                 = { version = "latest", os = ["macos"] }
+"brew-cask:slack"                  = { version = "latest", os = ["macos"] }
+"brew-cask:spotify"                = { version = "latest", os = ["macos"] }
+"brew-cask:steam"                  = { version = "latest", os = ["macos"] }
+"brew-cask:sublime-text"           = { version = "latest", os = ["macos"] }
+"brew-cask:synology-drive"         = { version = "latest", os = ["macos"] }
+"brew-cask:telegram"               = { version = "latest", os = ["macos"] }
+"brew-cask:visual-studio-code"     = { version = "latest", os = ["macos"] }
+"brew-cask:vlc"                    = { version = "latest", os = ["macos"] }
+"brew-cask:whatsapp"               = { version = "latest", os = ["macos"] }
+"brew-cask:zoom"                   = { version = "latest", os = ["macos"] }
+"brew-cask:sqlcl"                  = { version = "latest", os = ["macos"] }
 # ----------------------------------------------------------------- task ----
 
 [tasks.bootstrap]
