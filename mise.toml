@@ -34,15 +34,7 @@ gh = "latest"
 # ------------------------------------------------- environment variables ----
 
 [env]
-# Prepended to PATH, highest precedence first. This reproduces the net ordering
-# of the stacked `export PATH=...:$PATH` lines in environment.sh.
-#
-# NB: these use {{env.HOME}}/josh-env rather than the config_root template.
-# config_root resolves to the *cwd* when a config is loaded globally (via
-# conf.d), which would silently point PATH at the wrong directory. Concrete
-# paths also match what environment.sh and ~/.zshrc already hardcode.
-#
-# Dropped:
+# Prepended to PATH, highest precedence first. 
 _.path = [
   "/opt/homebrew/opt/curl/bin",
   "/opt/homebrew/opt/ruby/bin",
