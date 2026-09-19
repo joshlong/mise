@@ -43,16 +43,12 @@ _.path = [
   "{{env.HOME}}/bin",
   "{{env.HOME}}/.docker/bin",
   "{{env.HOME}}/Library/Application Support/JetBrains/Toolbox/scripts",
-  # `brew shellenv`'s PATH half. Last, so the /opt/homebrew/opt/* overrides
-  # above still win. Previously this arrived only via /etc/paths.d/homebrew,
-  # which the Homebrew *installer* writes -- and mise pours formulae without
-  # running that installer, so a fresh machine could have none of it.
+  # brew shellenv's PATH half; last so the opt/* overrides above win.
   "/opt/homebrew/bin",
   "/opt/homebrew/sbin",
 ]
 
-# The rest of `brew shellenv`, declared rather than eval'd. The rc-file half
-# (fpath) is in the final hook, since fpath is a shell thing.
+# rest of brew shellenv (its fpath half is in the final hook)
 HOMEBREW_PREFIX     = "/opt/homebrew"
 HOMEBREW_CELLAR     = "/opt/homebrew/Cellar"
 HOMEBREW_REPOSITORY = "/opt/homebrew"
@@ -96,55 +92,28 @@ enabled = true
 [bootstrap.hooks.final]
 run = '''
 ZSHRC="$HOME/.zshrc"
-MARKER="# >>> mise bootstrap: shell init >>>"
-
-# Migration: these used to be separate blocks (and before that, bootstrap.sh
-# wrote oh-my-zsh itself). They are one ordered block now, because the ordering
-# is load-bearing -- see the block below. Strip the old markers, or the file
-# accumulates duplicates and sources oh-my-zsh two or three times.
-for legacy in "bootstrap.sh: oh-my-zsh" "mise bootstrap: oh-my-zsh" "mise bootstrap: direnv"; do
-  if grep -qF "# >>> $legacy >>>" "$ZSHRC" 2>/dev/null; then
-    sed -i.bak "/# >>> $legacy >>>/,/# <<< $legacy <<</d" "$ZSHRC"
-    echo "shell init: removed legacy block '$legacy'"
-  fi
-done
-
-if grep -qF "$MARKER" "$ZSHRC" 2>/dev/null; then
-  echo "shell init: already wired in $ZSHRC"
+if grep -qF "# >>> mise bootstrap: shell init >>>" "$ZSHRC" 2>/dev/null; then
+  echo "shell init: already wired"
 else
   cat >> "$ZSHRC" <<'RC'
 
 # >>> mise bootstrap: shell init >>>
-# Everything environment.sh used to own. ORDER MATTERS:
-#   1. fpath additions must precede oh-my-zsh, which runs compinit
-#   2. rbenv and direnv install precmd hooks, so they follow oh-my-zsh
-#   3. direnv's docs want its hook after any other precmd hook
-#   4. kiro last; it is conditional on running inside Kiro's terminal
-
-# --- completions (must precede compinit) ---
-# `brew shellenv`'s fpath half; its exports are declared in mise.toml [env].
+# Order matters: fpath before oh-my-zsh (it runs compinit), precmd hooks after.
 [ -d /opt/homebrew/share/zsh/site-functions ] && fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 [ -d "$HOME/.docker/completions" ] && fpath=("$HOME/.docker/completions" $fpath)
 
-# --- oh-my-zsh (runs compinit, picking up the fpath entries above) ---
 export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 ZSH_THEME="robbyrussell"   # change me
 plugins=(git)              # change me
 [ -r "$ZSH/oh-my-zsh.sh" ] && source "$ZSH/oh-my-zsh.sh"
 
-# --- rbenv ---
-command -v rbenv >/dev/null && eval "$(rbenv init - zsh)"
-
-# --- direnv (after the other precmd hooks) ---
+command -v rbenv  >/dev/null && eval "$(rbenv init - zsh)"
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
-# --- kiro terminal integration ---
-if [ "$TERM_PROGRAM" = "kiro" ] && command -v kiro >/dev/null; then
-  . "$(kiro --locate-shell-integration-path zsh)"
-fi
+if [ "$TERM_PROGRAM" = "kiro" ] && command -v kiro >/dev/null; then . "$(kiro --locate-shell-integration-path zsh)"; fi
 # <<< mise bootstrap: shell init <<<
 RC
-  echo "shell init: appended block to $ZSHRC"
+  echo "shell init: wired $ZSHRC"
 fi
 '''
 
