@@ -1,33 +1,4 @@
-# josh-env — machine bootstrap
-#
-# Converted from environment.sh. Apply with:
-#
-#   mise trust
-#   mise bootstrap --dry-run     # preview
-#   mise bootstrap               # packages -> repos -> shell activation -> tools -> task
-#
-# On a brand new machine:
-#   curl https://mise.run | sh
-#   git clone git@github.com:joshlong/josh-env.git ~/josh-env
-#   cd ~/josh-env && mise trust && mise bootstrap
-#
-# What mise does NOT own stays in environment.sh, which ~/.zshrc sources:
-#   brew shellenv, oh-my-zsh + ZSH_THEME/plugins, docker completions/compinit,
-#   `rbenv init -`, `direnv hook zsh`, kiro integration, and `mise activate`.
-# NOTE: mise now DOES manage shell init -- see [bootstrap.mise_shell_activate]
-# below. The old split (environment.sh owns ~/.zshrc) died with josh-env; with
-# nothing owning shell init, a new shell got no PATH and no [env] at all.
-#
-# IMPORTANT — this config must be loaded GLOBALLY, not just as a project
-# config. A project mise.toml only applies inside its own directory, so from
-# ~ you would get no PATH entries, no API keys, no SSH_AUTH_SOCK. Symlink it
-# into the global conf.d once per machine:
-#
-#   mkdir -p ~/.config/mise/conf.d
-#   ln -sfn ~/josh-env/mise.toml ~/.config/mise/conf.d/josh-env.toml
-#
-# (conf.d merges with ~/.config/mise/config.toml rather than replacing it,
-# which MISE_GLOBAL_CONFIG_FILE would do.)
+# see bootstrap.sh for a way to set everything up 
 
 min_version = "2026.9.11"
 
@@ -68,10 +39,8 @@ _.path = [
   "/opt/homebrew/opt/curl/bin",
   "/opt/homebrew/opt/ruby/bin",
   "/opt/homebrew/opt/libpq/bin",
-  "{{env.HOME}}/bin",
-  "{{env.HOME}}/josh-env/bin/db",
-  "{{env.HOME}}/josh-env/bin",
   "/opt/homebrew/opt/rustup/bin",
+  "{{env.HOME}}/bin",
   "{{env.HOME}}/.docker/bin",
   "{{env.HOME}}/Library/Application Support/JetBrains/Toolbox/scripts",
 ]
@@ -86,11 +55,6 @@ SSH_AUTH_SOCK       = "{{env.HOME}}/Library/Containers/com.bitwarden.desktop/Dat
 A = { age = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IGUyYWNEZyBGNG5LMVB0NDIvTTM2SGFlVmQ1aW9Qd0F4WDdZNHdta2ovbUVnLzNXbWdrCmI0OU8vVlh1aE1aT3lqU05QSkJCaHpTNEpSMWYyZHYzZGw3WTFtaVZodEEKLT4gflp9QC1ncmVhc2UKN2RIaWRKeUlsSWcKLS0tIEVwQzEwVEFrWFBkUzB4Z0RQZk1DdG1jbHFPSFZtc1ZqaXRXTHU5cTVSV2MKza8aQMDNudLoqvvD6se1XdVGy8+6TXdpROzZn4gWGfy9" }
 DB_PASSWORD = { age = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IGUyYWNEZyBiYWRQNHhuTUREZ09ZSmRQeFBQZjd6eDAxL3lTeGxHc3RwaUxoV0tiVGxvCktOUWl3LzRlb0dkcitZY2pwWXlSdWN5Uy9YSTFiUzF2a1kwZEY3d2NJcjgKLT4gUTdfJHsrLWdyZWFzZSApbTNiIG9hJGlPIEZGK04yOCBCc0E4ZkkKVHkrS3dLa3pWQ2s2K1NEN01PMnB5eTRJOS9Zd0N5RHFhZnBnN3FGdUNnCi0tLSBJdys2QUtWSHRLSjNzVmcvQTlNcmlSK1dFNWhuRjlQVHVtRlNVdStUM1RRCltqIAxY3dTy1IoZBURs7i5F/AiIs+RFGCtEwxgo+w4CzLDj+Q" }
 
-# --- secrets ---------------------------------------------------------------
-# Inline because josh-env is a private repo — same as environment.sh did. To
-# pull them out, move this block into a git-ignored `mise.local.toml` (mise
-# loads it automatically at higher precedence), or use
-# https://mise.jdx.dev/environments/secrets.html for sops/age encryption.
 
 # ---------------------------------------------------------- shell aliases ----
 # Applied by `mise activate` on directory entry (bash/zsh/fish only).
@@ -105,9 +69,12 @@ uaok  = "{{env.HOME}}/josh-env/bin/uao.kts"
 
 # ------------------------------------------------------- shell activation ----
 # Without this, nothing ever writes ~/.zshrc, so a brand new shell has no mise,
-# no tools and no [env]. `enabled` is the only accepted key; it expands to two
-# managed blocks: ~/.zprofile (--shims, for login/non-interactive) and ~/.zshrc
-# (activate, for interactive). Both call bare `mise`, which is why bootstrap.sh
+# no tools and no [env]. it expands to two managed blocks:
+# 
+# ~/.zprofile (--shims, for login/non-interactive) 
+# ~/.zshrc (activate, for interactive). 
+#
+# Both call bare `mise`, which is why bootstrap.sh
 # must put ~/.local/bin on PATH via ~/.zshenv first.
 
 [bootstrap.mise_shell_activate.zsh]
@@ -120,7 +87,6 @@ enabled = true
 
 # ------------------------------------------------------------ brew taps ----
 # mise resolves tapped formulae/casks itself; Homebrew need not be installed.
-
 # Adopt apps already sitting in /Applications instead of failing on them.
 # Relevant when bootstrapping over an existing machine rather than a fresh one.
 [bootstrap.brew]
@@ -130,7 +96,8 @@ adopt = true
 "arconia-io/tap" = "https://github.com/arconia-io/homebrew-tap.git"
 
 # ------------------------------------------------------- system packages ----
-# Regenerate formulae with: mise bootstrap packages import --manager brew
+# sync mise.toml with homebrew packages installed manually: 
+# mise bootstrap packages import --manager brew
 
 [bootstrap.packages]
 
@@ -192,7 +159,6 @@ adopt = true
 "brew-cask:claude"                 = "latest"
 "brew-cask:claude-code"            = "latest"
 "brew-cask:codex"                  = "latest"
-#"brew-cask:detachhead/tap/rebased" = "latest"  # needs Ruby 3+; see [bootstrap.brew.taps] note
 "brew-cask:discord"                = "latest"
 "brew-cask:docker-desktop"         = "latest"
 "brew-cask:dotnet-sdk"             = "latest"
