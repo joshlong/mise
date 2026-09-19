@@ -95,4 +95,26 @@ echo "ssh key ok: $(ssh-keygen -lf "$KEY")"
 # NOTE: pulls from GitHub, so local mise.toml edits do nothing until pushed.
 mise bootstrap --adopt https://github.com/joshlong/mise.git --yes
 
+# --- oh-my-zsh --------------------------------------------------------------
+# [bootstrap.repos] clones oh-my-zsh to ~/.oh-my-zsh and mise.toml exports ZSH,
+# but nothing ever SOURCES it -- mise's managed block only handles mise itself.
+# So append our own marked block. It must come AFTER mise's block, because $ZSH
+# is a mise [env] value and only exists once `mise activate` has run; appending
+# post-bootstrap guarantees that order. ZSH is also set defensively here so this
+# does not silently no-op if the [env] entry ever goes away.
+ZSHRC="$HOME/.zshrc"
+OMZ_MARKER="# >>> bootstrap.sh: oh-my-zsh >>>"
+if ! grep -qF "$OMZ_MARKER" "$ZSHRC" 2>/dev/null; then
+  {
+    echo ""
+    echo "$OMZ_MARKER"
+    echo 'export ZSH="${ZSH:-$HOME/.oh-my-zsh}"'
+    echo 'ZSH_THEME="robbyrussell"   # change me'
+    echo 'plugins=(git)              # change me'
+    echo '[ -r "$ZSH/oh-my-zsh.sh" ] && source "$ZSH/oh-my-zsh.sh"'
+    echo "# <<< bootstrap.sh: oh-my-zsh <<<"
+  } >> "$ZSHRC"
+  echo "added oh-my-zsh block to $ZSHRC"
+fi
+
 
