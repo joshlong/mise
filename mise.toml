@@ -159,6 +159,40 @@ if [ "$TERM_PROGRAM" = "kiro" ] && command -v kiro >/dev/null; then . "$(kiro --
 RC
   echo "shell init: wired $ZSHRC"
 fi
+if grep -qF "# >>> mise bootstrap: bitwarden >>>" "$ZSHRC" 2>/dev/null; then
+  echo "bitwarden: already wired"
+else
+  cat >> "$ZSHRC" <<'RC'
+
+# >>> mise bootstrap: bitwarden >>>
+# One place to get an unlocked vault for the current shell. The session has to be exported
+# by the shell rather than by anything mise runs: mise re-runs its env scripts from a clean
+# environment and strips the variables they set last time, so a BW_SESSION exported by an
+# env script is gone by the next recompute and you get asked for the master password again.
+# Exported here it is part of the base environment, which mise passes through untouched.
+bw-unlock() {
+  if [ -n "$BW_SESSION" ] && bw unlock --check >/dev/null 2>&1; then
+    echo "bitwarden: already unlocked"
+    return 0
+  fi
+  local session
+  if ! session="$(bw unlock --raw)"; then
+    echo "bitwarden: unlock failed" >&2
+    return 1
+  fi
+  export BW_SESSION="$session"
+  echo "bitwarden: unlocked for this shell"
+}
+
+bw-lock() {
+  bw lock >/dev/null 2>&1
+  unset BW_SESSION
+  echo "bitwarden: locked, BW_SESSION cleared"
+}
+# <<< mise bootstrap: bitwarden <<<
+RC
+  echo "bitwarden: wired $ZSHRC"
+fi
 '''
 
 # --------------------------------------------------------------- repos ----
