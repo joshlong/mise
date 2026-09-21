@@ -247,17 +247,16 @@ adopt = true
 # Deliberately minimal: enough to work in a container. The brew list above is
 # the Mac's full set and is gated off here -- on linux-arm64 mise would resolve
 # ~248 formulae against formulae.brew.sh and most have no bottle.
-"apt:git" = "latest"
-"apt:curl" = "latest"
-"apt:ca-certificates" = "latest"
-"apt:gnupg" = "latest"
-"apt:unzip" = "latest"
-"apt:build-essential" = "latest"
-"apt:zsh" = "latest"             # shell activation writes ~/.zshrc; need a zsh to read it
-"apt:tree" = "latest"
-"apt:wget" = "latest"
-
-"flatpak:com.spotify.Client" = "latest"
+"apt:git" =  { os =["linux"] }
+"apt:curl" = { os =["linux"] } 
+"apt:ca-certificates" = { os =["linux"] }
+"apt:gnupg" = { os =["linux"] }
+"apt:unzip" = { os =["linux"] }
+"apt:build-essential" = { os =["linux"] }
+"apt:zsh" =  { os =["linux"] }
+"apt:tree" = { os =["linux"] }
+"apt:wget" = { os =["linux"] }
+"flatpak:com.spotify.Client" = { os =["linux"] }
 "brew:git-gui" = { version = "latest", os = ["macos"] }
 "brew-cask:adobe-creative-cloud" = { version = "latest", os = ["macos"] }
 "brew-cask:affinity" = { version = "latest", os = ["macos"] }
