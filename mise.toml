@@ -70,6 +70,7 @@ _.path = [
   "/opt/homebrew/opt/rustup/bin",
   "{{env.HOME}}/bin",
   "{{env.HOME}}/josh-env/bin",
+  "{{env.HOME}}/josh-env/bin/db/",
   "{{env.HOME}}/.docker/bin",
   "{{env.HOME}}/Library/Application Support/JetBrains/Toolbox/scripts",
   # brew shellenv's PATH half; last so the opt/* overrides above win.
