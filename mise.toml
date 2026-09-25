@@ -226,6 +226,7 @@ adopt = true
 "brew:cloudfoundry-cli" = { os = ["macos"] }
 "brew:curl" = { os = ["macos"] }
 "brew:ffmpeg-full" = { os = ["macos"] }
+"brew:ffmpeg" = { os = ["macos"] }
 "brew:git" = { os = ["macos"] }
 "brew:gnupg" = { os = ["macos"] }
 "brew:graphviz" = { os = ["macos"] }
