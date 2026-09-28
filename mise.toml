@@ -237,6 +237,7 @@ adopt = true
 "brew:mongosh" = { os = ["macos"] }
 "brew:pandoc" = { os = ["macos"] }
 "brew:rbenv" = { os = ["macos"] }
+"brew:opencode" = { os = ["macos"] }
 "brew:tree" = { os = ["macos"] }
 "brew:watch" = { os = ["macos"] }
 "brew:wget" = { os = ["macos"] }
