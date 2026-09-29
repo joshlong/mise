@@ -262,6 +262,7 @@ adopt = true
 "flatpak:com.spotify.Client" = { os =["linux"] }
 "brew:git-gui" = { version = "latest", os = ["macos"] }
 "brew-cask:adobe-creative-cloud" = { version = "latest", os = ["macos"] }
+"brew-cask:redis-insight" = { version = "latest", os = ["macos"] }
 "brew-cask:affinity" = { version = "latest", os = ["macos"] }
 "brew-cask:block-goose" = { version = "latest", os = ["macos"] }
 "brew-cask:calibre" = { version = "latest", os = ["macos"] }
