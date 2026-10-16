@@ -197,11 +197,11 @@ RC
   echo "bitwarden: wired $ZSHRC"
 fi
 
-# <<< selectively install adobe creative cloud 
+# <<< selectively don't install tools my company prolly wants a say in
 if [ "$(uname)" = "Darwin" ] && [ -z "${CORPORATE_LAPTOP:-}" ]; then
   brew install --cask expressvpn
   brew install --cask zoom
-
+  brew install --cask adobe-creative-cloud
 fi
 '''
 
@@ -266,7 +266,6 @@ adopt = true
 "apt:wget" = { os =["linux"] }
 "flatpak:com.spotify.Client" = { os =["linux"] }
 "brew:git-gui" = { version = "latest", os = ["macos"] }
- "brew-cask:adobe-creative-cloud" = { version = "latest", os = ["macos"] }
 "brew-cask:redis-insight" = { version = "latest", os = ["macos"] }
 "brew-cask:affinity" = { version = "latest", os = ["macos"] }
 "brew-cask:block-goose" = { version = "latest", os = ["macos"] }
