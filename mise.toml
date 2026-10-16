@@ -197,8 +197,10 @@ RC
 fi
 
 # <<< selectively install adobe creative cloud 
-if [ "$(uname)" = "Darwin" ] && [ -z "${corporate_laptop:-}" ]; then
+if [ "$(uname)" = "Darwin" ] && [ -z "${CORPORATE_LAPTOP:-}" ]; then
   brew install --cask adobe-creative-cloud
+  brew install --cask expressvpn
+
 fi
 '''
 
@@ -277,7 +279,7 @@ adopt = true
 "brew-cask:codex" = { version = "latest", os = ["macos"] }
 "brew-cask:discord" = { version = "latest", os = ["macos"] }
 "brew-cask:docker-desktop" = { version = "latest", os = ["macos"] }
-"brew-cask:expressvpn" = { version = "latest", os = ["macos"] }
+# "brew-cask:expressvpn" = { version = "latest", os = ["macos"] }
 "brew-cask:github-copilot-app" = { version = "latest", os = ["macos"] }
 "brew-cask:google-chrome" = { version = "latest", os = ["macos"] }
 "brew-cask:google-gemini" = { version = "latest", os = ["macos"] }
