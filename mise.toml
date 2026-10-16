@@ -22,6 +22,7 @@ ssh_identity_files = ["~/.ssh/mise_private_key"]
 
 [tools]
 python = "latest"
+bitwarden = "latest"
 cmake = "latest"
 claude = "latest"
 docker-compose = "latest"
