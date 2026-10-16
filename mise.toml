@@ -70,6 +70,7 @@ _.path = [
   "/opt/homebrew/opt/libpq/bin",
   "/opt/homebrew/opt/rustup/bin",
   "{{env.HOME}}/bin",
+  "{{env.HOME}}/.local/share/mise/installs/python/3.14/bin",
   "{{env.HOME}}/josh-env/bin",
   "{{env.HOME}}/josh-env/bin/db/",
   "{{env.HOME}}/.docker/bin",
