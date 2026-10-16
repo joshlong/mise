@@ -26,7 +26,6 @@ cmake = "latest"
 claude = "latest"
 docker-compose = "latest"
 chromedriver = "latest"
-# java = "graalvm-community-25.0.2"
 java = "27.0.0"
 jbang = "0.141.0"
 azure-cli = "latest"
@@ -199,7 +198,6 @@ fi
 
 # <<< selectively install adobe creative cloud 
 if [ "$(uname)" = "Darwin" ] && [ -z "${CORPORATE_LAPTOP:-}" ]; then
-  brew install --cask adobe-creative-cloud
   brew install --cask expressvpn
   brew install --cask zoom
 
@@ -256,10 +254,6 @@ adopt = true
 "brew:zimg" = { os = ["macos"] }
 "brew:zsh" = { os = ["macos"] }
 
-# --- linux (apt self-gates; these never run on macOS) ---
-# Deliberately minimal: enough to work in a container. The brew list above is
-# the Mac's full set and is gated off here -- on linux-arm64 mise would resolve
-# ~248 formulae against formulae.brew.sh and most have no bottle.
 "apt:git" =  { os =["linux"] }
 "apt:curl" = { os =["linux"] } 
 "apt:ca-certificates" = { os =["linux"] }
@@ -271,7 +265,7 @@ adopt = true
 "apt:wget" = { os =["linux"] }
 "flatpak:com.spotify.Client" = { os =["linux"] }
 "brew:git-gui" = { version = "latest", os = ["macos"] }
-# "brew-cask:adobe-creative-cloud" = { version = "latest", os = ["macos"] }
+ "brew-cask:adobe-creative-cloud" = { version = "latest", os = ["macos"] }
 "brew-cask:redis-insight" = { version = "latest", os = ["macos"] }
 "brew-cask:affinity" = { version = "latest", os = ["macos"] }
 "brew-cask:block-goose" = { version = "latest", os = ["macos"] }
@@ -281,7 +275,6 @@ adopt = true
 "brew-cask:codex" = { version = "latest", os = ["macos"] }
 "brew-cask:discord" = { version = "latest", os = ["macos"] }
 "brew-cask:docker-desktop" = { version = "latest", os = ["macos"] }
-# "brew-cask:expressvpn" = { version = "latest", os = ["macos"] }
 "brew-cask:github-copilot-app" = { version = "latest", os = ["macos"] }
 "brew-cask:google-chrome" = { version = "latest", os = ["macos"] }
 "brew-cask:google-gemini" = { version = "latest", os = ["macos"] }
@@ -310,7 +303,6 @@ adopt = true
 "brew-cask:visual-studio-code" = { version = "latest", os = ["macos"] }
 "brew-cask:vlc" = { version = "latest", os = ["macos"] }
 "brew-cask:whatsapp" = { version = "latest", os = ["macos"] }
-# "brew-cask:zoom" = { version = "latest", os = ["macos"] }
 "brew-cask:sqlcl" = { version = "latest", os = ["macos"] }
 # ----------------------------------------------------------------- task ----
 
