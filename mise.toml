@@ -195,6 +195,11 @@ bw-lock() {
 RC
   echo "bitwarden: wired $ZSHRC"
 fi
+
+# <<< selectively install adobe creative cloud 
+if [ "$(uname)" = "Darwin" ] && [ -z "${corporate_laptop:-}" ]; then
+  brew install --cask adobe-creative-cloud
+fi
 '''
 
 # --------------------------------------------------------------- repos ----
@@ -262,7 +267,7 @@ adopt = true
 "apt:wget" = { os =["linux"] }
 "flatpak:com.spotify.Client" = { os =["linux"] }
 "brew:git-gui" = { version = "latest", os = ["macos"] }
-"brew-cask:adobe-creative-cloud" = { version = "latest", os = ["macos"] }
+# "brew-cask:adobe-creative-cloud" = { version = "latest", os = ["macos"] }
 "brew-cask:redis-insight" = { version = "latest", os = ["macos"] }
 "brew-cask:affinity" = { version = "latest", os = ["macos"] }
 "brew-cask:block-goose" = { version = "latest", os = ["macos"] }
