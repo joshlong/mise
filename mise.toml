@@ -200,6 +200,7 @@ fi
 if [ "$(uname)" = "Darwin" ] && [ -z "${CORPORATE_LAPTOP:-}" ]; then
   brew install --cask adobe-creative-cloud
   brew install --cask expressvpn
+  brew install --cask zoom
 
 fi
 '''
@@ -308,7 +309,7 @@ adopt = true
 "brew-cask:visual-studio-code" = { version = "latest", os = ["macos"] }
 "brew-cask:vlc" = { version = "latest", os = ["macos"] }
 "brew-cask:whatsapp" = { version = "latest", os = ["macos"] }
-"brew-cask:zoom" = { version = "latest", os = ["macos"] }
+# "brew-cask:zoom" = { version = "latest", os = ["macos"] }
 "brew-cask:sqlcl" = { version = "latest", os = ["macos"] }
 # ----------------------------------------------------------------- task ----
 
