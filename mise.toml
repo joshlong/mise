@@ -253,7 +253,9 @@ adopt = true
 "brew:hey" = { os = ["macos"] }
 "brew:ytt" = { os = ["macos"] }
 "brew:zimg" = { os = ["macos"] }
-"brew:zsh" = { os = ["macos"] }
+"brew:zsh" = "latest"
+"brew:visidata" = "latest"
+"brew:oxker" = "latest"
 
 "apt:git" =  { os =["linux"] }
 "apt:curl" = { os =["linux"] } 
