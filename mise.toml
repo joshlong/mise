@@ -256,6 +256,12 @@ adopt = true
 "brew:zsh" = "latest"
 "brew:visidata" = "latest"
 "brew:oxker" = "latest"
+"brew:croc" = "latest"
+"brew:kondo" = "latest"
+"brew:worktrunk" = "latest"
+"brew:llmfit" = "latest"
+"brew:grex" = "latest"
+
 
 "apt:git" =  { os =["linux"] }
 "apt:curl" = { os =["linux"] } 
