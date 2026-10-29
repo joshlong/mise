@@ -241,6 +241,7 @@ adopt = true
 "brew:graphviz" = { os = ["macos"] }
 "brew:grpcurl" = { os = ["macos"] }
 "brew:imagemagick-full" = { os = ["macos"] }
+
 "brew:libpq" = { os = ["macos"] }
 "brew:mongocli" = { os = ["macos"] }
 "brew:mongosh" = { os = ["macos"] }
@@ -274,6 +275,7 @@ adopt = true
 "apt:wget" = { os =["linux"] }
 "flatpak:com.spotify.Client" = { os =["linux"] }
 "brew:git-gui" = { version = "latest", os = ["macos"] }
+"brew-cask:antigravity" = { os = ["macos"] }
 "brew-cask:redis-insight" = { version = "latest", os = ["macos"] }
 "brew-cask:affinity" = { version = "latest", os = ["macos"] }
 "brew-cask:block-goose" = { version = "latest", os = ["macos"] }
@@ -290,6 +292,7 @@ adopt = true
 "brew-cask:jetbrains-toolbox" = { version = "latest", os = ["macos"] }
 "brew-cask:kiro" = { version = "latest", os = ["macos"] }
 "brew-cask:kiro-cli" = { version = "latest", os = ["macos"] }
+"brew-cask:antigravity-cli"  = { version = "latest", os = ["macos"] }
 "brew-cask:microsoft-office" = { version = "latest", os = ["macos"] }
 "brew-cask:microsoft-teams" = { version = "latest", os = ["macos"] }
 "brew-cask:obsidian" = { version = "latest", os = ["macos"] }
