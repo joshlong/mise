@@ -307,6 +307,7 @@ adopt = true
 "brew-cask:raycast" = { version = "latest", os = ["macos"] }
 "brew-cask:signal" = { version = "latest", os = ["macos"] }
 "brew-cask:slack" = { version = "latest", os = ["macos"] }
+"brew-cask:tailscale-app" = { version = "latest", os = ["macos"] }
 "brew-cask:spotify" = { version = "latest", os = ["macos"] }
 "brew-cask:steam" = { version = "latest", os = ["macos"] }
 "brew-cask:sublime-text" = { version = "latest", os = ["macos"] }
