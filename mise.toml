@@ -233,7 +233,7 @@ adopt = true
 "brew:bash" = { os = ["macos"] }
 "brew:bitwarden-cli" = { os = ["macos"] }
 "brew:block-goose-cli" = { os = ["macos"] }
-"brew:checkstyle" = { os = ["macos"] }
+"brew-cask:artcraft-launcher" = "latest"
 "brew:cloudfoundry-cli" = { os = ["macos"] }
 "brew:curl" = { os = ["macos"] }
 "brew:ffmpeg-full" = { os = ["macos"] }
